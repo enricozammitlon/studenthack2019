@@ -115,3 +115,6 @@ venv.bak/
 # Compiled Android binaries
 /app/bin
 /app/.buildozer
+
+# Node packages
+node_modules
