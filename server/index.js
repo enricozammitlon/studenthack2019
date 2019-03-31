@@ -11,14 +11,14 @@ const { JSDOM } = jsdom;
 
 const port = process.env.PORT || 8082 ;
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/game_client'));
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
 function setupAuthoritativePhaser() {
-  JSDOM.fromFile(path.join(__dirname, 'authoritative_server/index.html'), {
+  JSDOM.fromFile(path.join(__dirname, 'game_server/index.html'), {
     // To run the scripts in the html file
     runScripts: "dangerously",
     // Also load supported external resources
