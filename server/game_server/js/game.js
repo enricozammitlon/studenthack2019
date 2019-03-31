@@ -61,8 +61,8 @@ function update (){
   this.physics.world.wrap(this.players, 5);
   io.emit('receivedSomething', {"code":this.receivedSession});
   if(getAllPlayers(this).length>1){
-    self.buttonConfig=getButtonconfig();
-    io.emit('getScenario',{"command":getCommand(),"buttonA":self.buttonConfig[0],"buttonB":self.buttonConfig[1],"place":getPlace()})
+    this.buttonConfig=getButtonconfig();
+    io.clients[this.players[0]].emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
   }
 }
 
