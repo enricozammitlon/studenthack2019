@@ -34,8 +34,8 @@ function create ()
   this.receivedSession=0;
 
   io.on('codeID', function (sessionid) {
-    console.log(sessionid);
-    self.receivedSession=sessionid;
+    console.log(JSON.parse(sessionid));
+    self.receivedSession=JSON.parse(sessionid);
     });
 
   io.on('connection', function (socket) {
