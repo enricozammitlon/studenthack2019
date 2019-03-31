@@ -88,7 +88,7 @@ function getButtonconfig(){
 }
 
 function getPlace(){
-  return "1";
+  return "0";
 }
 
 function addPlayer(self,socket) {
