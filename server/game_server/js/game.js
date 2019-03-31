@@ -33,10 +33,6 @@ function create ()
   this.SessionID = Math.floor((Math.random() * this.max) + 1);
   this.receivedSession=0;
 
-  io.on('codeID', function (sessionid) {
-    console.log(JSON.parse(sessionid));
-    self.receivedSession=JSON.parse(sessionid);
-    });
 
   io.on('connection', function (socket) {
     console.log('a user connected');
@@ -53,13 +49,16 @@ function create ()
       // emit a message to all players to remove this player
       io.emit('disconnect', socket.id);
     });  */
-
+    socket.on('codeID', function (sessionid) {
+        console.log(JSON.parse(sessionid));
+        self.receivedSession=JSON.parse(sessionid);
+        });
   });
 
 }
 
 function update (){
-
+  this.physics.world.wrap(this.players, 5);
   io.emit('receivedSomething', {"code":this.receivedSession});
 }
 

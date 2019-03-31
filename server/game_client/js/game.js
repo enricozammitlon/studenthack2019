@@ -43,8 +43,12 @@ function create() {
   this.socket.on('receivedSomething', function (sessionid) {
       self.redScoreText.setText('Session ID: ' + sessionid['code']);
     });
+
+  this.cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
-
+  if (this.cursors.left.isDown) {
+    this.socket.emit('codeID',JSON.stringify("12345"))
+  }
 }
