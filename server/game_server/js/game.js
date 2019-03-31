@@ -38,6 +38,7 @@ function create ()
     socket.emit('updateScore', {"code":self.SessionID});
     //this.players.add(player);
     socket.on('codeID', function (sessionid) {
+      console.log(sessionid);
       socket.emit('receivedSomething', {"code":sessionid});
       });
   
