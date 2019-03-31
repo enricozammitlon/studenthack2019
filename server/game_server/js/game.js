@@ -38,7 +38,7 @@ function create ()
     var SessionID = Math.floor((Math.random() * self.max) + 1);
     self.games.push(SessionID);
     socket.join(SessionID);
-    socket.in(SessionID).emit('hostCode', {"code":SessionID});
+    socket.in(SessionID).emit('hostCode', {"code":""+SessionID});
     self.players[socket.id]=SessionID;
     console.log("New Game Room: "+self.players[socket.id]+" hosted by "+socket.id);
 
