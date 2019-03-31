@@ -62,7 +62,7 @@ function update (){
   io.emit('receivedSomething', {"code":this.receivedSession});
   if(getAllPlayers(this).length>1){
     this.buttonConfig=getButtonconfig();
-    io.clients[this.players[0]].emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+    io.to(`${this.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
   }
 }
 
