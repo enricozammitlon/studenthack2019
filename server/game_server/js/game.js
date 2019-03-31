@@ -91,13 +91,6 @@ function getPlace(){
   return "0";
 }
 
-function addPlayer(self,socket) {
-  self.players.a
-}
-
-function removePlayer(self, playerId) {
-
-}
 
 function getAllPlayers(){
     var players = [];
