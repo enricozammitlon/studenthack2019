@@ -38,13 +38,13 @@ function create ()
     console.log('a user connected');
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
-    socket.on('newplayer',function(){
-      socket.player = {
-          id: self.lastPlayderID++
-      };
-      socket.emit('allplayers',getAllPlayers());
-      socket.broadcast.emit('newplayer',socket.player);
-    });
+    // socket.on('newplayer',function(){
+    //   socket.player = {
+    //       id: self.lastPlayderID++
+    //   };
+    //   socket.emit('allplayers',getAllPlayers());
+    //   socket.broadcast.emit('newplayer',socket.player);
+    // });
     //this.players.add(player);
 
 /*    socket.on('disconnect', function () {
