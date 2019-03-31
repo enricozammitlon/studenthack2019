@@ -50,8 +50,8 @@ function create ()
       io.emit('disconnect', socket.id);
     });  */
     socket.on('codeID', function (sessionid) {
-        console.log(JSON.parse(sessionid));
-        self.receivedSession=JSON.parse(sessionid);
+        console.log(sessionid);
+        self.receivedSession=sessionid;
         });
   });
 

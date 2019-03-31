@@ -49,6 +49,6 @@ function create() {
 
 function update() {
   if (this.cursors.left.isDown) {
-    this.socket.emit('codeID',JSON.stringify("12345"))
+    this.socket.emit('codeID',"12345")
   }
 }
