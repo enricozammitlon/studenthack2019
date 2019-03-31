@@ -28,23 +28,16 @@ function preload (){
 function create ()
 {
   const self=this;
-  this.players = this.physics.add.group();
+  this.players =[];
   this.max = 9999;
   this.SessionID = Math.floor((Math.random() * this.max) + 1);
   this.receivedSession=0;
-  this.lastPlayderID = 0;
 
   io.on('connection', function (socket) {
     console.log('a user connected');
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
-    // socket.on('newplayer',function(){
-    //   socket.player = {
-    //       id: self.lastPlayderID++
-    //   };
-    //   socket.emit('allplayers',getAllPlayers());
-    //   socket.broadcast.emit('newplayer',socket.player);
-    // });
+    self.players.push(socket.id);
     //this.players.add(player);
 
 /*    socket.on('disconnect', function () {
@@ -67,8 +60,7 @@ function create ()
 function update (){
   this.physics.world.wrap(this.players, 5);
   io.emit('receivedSomething', {"code":this.receivedSession});
-
-  if(getAllPlayers().length>1){
+  if(getAllPlayers(this).length>1){
     self.buttonConfig=getButtonconfig();
     io.emit('getScenario',{"command":getCommand(),"buttonA":self.buttonConfig[0],"buttonB":self.buttonConfig[1],"place":getPlace()})
   }
@@ -92,13 +84,8 @@ function getPlace(){
 }
 
 
-function getAllPlayers(){
-    var players = [];
-    Object.keys(io.sockets.connected).forEach(function(socketID){
-        var player = io.sockets.connected[socketID].player;
-        if(player) players.push(player);
-    });
-    return players;
+function getAllPlayers(self){
+    return self.players;
 }
 
 window.gameLoaded();
