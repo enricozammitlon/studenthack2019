@@ -35,11 +35,11 @@ function create ()
   io.on('connection', function (socket) {
     console.log('a user connected');
     console.log(this.SessionID);
-    socket.emit('updateScore', self.SessionID);
+    socket.emit('updateScore', {"code":self.SessionID});
     //this.players.add(player);
 
   
-    socket.on('disconnect', function () {
+/*    socket.on('disconnect', function () {
       console.log('user disconnected');
       // remove player from server
       removePlayer(this, socket.id);
@@ -47,7 +47,8 @@ function create ()
       delete players[socket.id];
       // emit a message to all players to remove this player
       io.emit('disconnect', socket.id);
-    });  
+    });  */
+
   });
 
 }
