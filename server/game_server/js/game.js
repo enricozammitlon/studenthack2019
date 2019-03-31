@@ -35,7 +35,7 @@ function create ()
   this.max = 9999;
   this.start=false;
   this.required='A';
-  this.place="0";
+  this.place=0;
 
   io.on('connection', function (socket) {
     console.log('a user connected');
@@ -56,10 +56,10 @@ function create ()
 
     socket.on('response', function (pressed) {
         if(pressed='A'){
-          self.place="1";
+          self.place+=1;
         }
         else{
-          self.place="-1";
+          self.place-=-1;
         }
 
         });
