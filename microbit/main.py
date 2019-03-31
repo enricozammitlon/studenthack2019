@@ -34,7 +34,8 @@ _id = None
 while True:            
     incoming = radio.receive()  # Check radio for data
     if incoming:  # If message is received
-        if incoming[0] == "A":
+        if incoming[0] == "A" and microbit.button_a.is_pressed()\
+            and microbit.button_b.is_pressed():
             _id = incoming[1:]
         if incoming[0] == "C" and incoming[2:] == _id:
             button_to_press = incoming[1]
