@@ -31,17 +31,19 @@ function create ()
   this.players = this.physics.add.group();
   this.max = 9999;
   this.SessionID = Math.floor((Math.random() * this.max) + 1);
+  this.receivedSession=0;
+
+  io.on('codeID', function (sessionid) {
+    console.log(sessionid);
+    self.receivedSession=sessionid;
+    });
 
   io.on('connection', function (socket) {
     console.log('a user connected');
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
     //this.players.add(player);
-    socket.on('codeID', function (sessionid) {
-      console.log(sessionid);
-      socket.emit('receivedSomething', {"code":sessionid});
-      });
-  
+
 /*    socket.on('disconnect', function () {
       console.log('user disconnected');
       // remove player from server
@@ -56,7 +58,10 @@ function create ()
 
 }
 
-function update (){}
+function update (){
+
+  io.emit('receivedSomething', {"code":this.receivedSession});
+}
 
 function getSessionID(){
   console.log(this.SessionID);
