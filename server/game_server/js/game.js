@@ -39,9 +39,6 @@ function create ()
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
 
-    self.buttonConfig=getButtonconfig();
-    socket.emit('getScenario',{"command":getCommand(),"buttonA":self.buttonConfig[0],"buttonB":self.buttonConfig[1]})
-
     //this.players.add(player);
 
 /*    socket.on('disconnect', function () {
@@ -64,6 +61,11 @@ function create ()
 function update (){
   this.physics.world.wrap(this.players, 5);
   io.emit('receivedSomething', {"code":this.receivedSession});
+
+  
+  self.buttonConfig=getButtonconfig();
+  socket.emit('getScenario',{"command":getCommand(),"buttonA":self.buttonConfig[0],"buttonB":self.buttonConfig[1]})
+
 }
 
 function getSessionID(){
