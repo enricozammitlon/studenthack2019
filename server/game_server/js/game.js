@@ -48,7 +48,7 @@ function create ()
     console.log("New Game Room: "+self.players[socket.id]+" hosted by "+socket.id);
 
     socket.on('joinGame', function (sessionid) {
-        console.log(socket.id+" is joingin game room: "+sessionid);
+        console.log(socket.id+" is joining game room: "+sessionid);
         socket.leave(self.players[socket.id]);
         socket.join(sessionid);
         self.players[socket.id]=sessionid;
@@ -61,6 +61,11 @@ function create ()
         else{
           self.place-=-1;
         }
+
+        });
+
+    socket.on('endgame', function (pressed) {
+        self.start=false;
 
         });
 
