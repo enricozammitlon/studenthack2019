@@ -36,7 +36,7 @@ function create ()
 
   io.on('connection', function (socket) {
     console.log('a user connected');
-    playerList.push(socket.id);
+    self.playerList.push(socket.id);
     var SessionID = Math.floor((Math.random() * self.max) + 1);
     self.games[SessionID]=0;
     socket.join(SessionID);
@@ -77,8 +77,8 @@ function update (){
     if(self.games[0]){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.in(playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.in(playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.in(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.in(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
 
     }
   //});
