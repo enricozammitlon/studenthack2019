@@ -34,6 +34,8 @@ function create ()
   this.microbits=[];
   this.max = 9999;
   this.start=false;
+  this.required='A';
+  this.place="0";
 
   io.on('connection', function (socket) {
     console.log('a user connected');
@@ -50,6 +52,16 @@ function create ()
         socket.leave(self.players[socket.id]);
         socket.join(sessionid);
         self.players[socket.id]=sessionid;
+        });
+
+    socket.on('response', function (pressed) {
+        if(pressed='A'){
+          self.place="1";
+        }
+        else{
+          self.place="-1";
+        }
+
         });
 
     socket.on('startgame', function (start) {
@@ -78,8 +90,8 @@ function update (){
     if(self.start){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.to(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.to(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace(self)})
+      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace(self)})
 
     }
   //});
@@ -94,11 +106,13 @@ function getSessionID(){
   return SessionID;
 }
 
-function getCommand(i){
+function getCommand(i,self){
   if(i==1){
+    self.required='A';
     return "Poop your pants";    
   }
   else if(i==2){
+    self.required='B';
     return "Soil your pants";    
   }
 }
@@ -107,8 +121,8 @@ function getButtonconfig(){
   return ["Punch","Kick"];
 }
 
-function getPlace(){
-  return "0";
+function getPlace(self){
+  return self.place;
 }
 
 
