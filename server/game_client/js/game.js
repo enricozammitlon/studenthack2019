@@ -33,6 +33,7 @@ function create() {
   });
 
 
+
   this.socket.on('disconnect', function (playerId) {
     self.players.getChildren().forEach(function (player) {
       if (playerId === player.playerId) {
@@ -61,6 +62,6 @@ function create() {
 
 function update() {
   if (this.cursors.left.isDown) {
-    this.socket.emit('codeID',"12345")
+    this.socket.emit('startgame',true)
   }
 }

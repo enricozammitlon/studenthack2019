@@ -38,7 +38,7 @@ function create ()
     console.log('a user connected');
     self.playerList.push(socket.id);
     var SessionID = Math.floor((Math.random() * self.max) + 1);
-    self.games[SessionID]=0;
+    self.games[SessionID]=false;
     socket.join(SessionID);
     socket.emit('hostCode', {"code":SessionID});
     self.players[socket.id]=SessionID;
@@ -52,8 +52,8 @@ function create ()
         });
 
     socket.on('startgame', function (start) {
-            console.log("game room: "+sessionid+" is starting.");
-            self.games[io.sockets.manager.roomClients[socket.id]]=1;
+            console.log("game room: "+self.players[socket.id]+" is starting.");
+            self.games[self.players[socket.id]]=1;
             });
 
     socket.on('disconnect', function () {
@@ -74,7 +74,7 @@ function update (){
   this.physics.world.wrap(this.players, 5);
   const self= this;
   //getAllPlayers(this).forEach((player) => {
-    if(self.games.values().next().value){
+    if(self.games[0]){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
       io.sockets.socket(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
