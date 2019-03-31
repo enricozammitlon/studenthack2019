@@ -35,7 +35,7 @@ function create ()
 
   io.on('connection', function (socket) {
     console.log('a user connected');
-    const SessionID = Math.floor((Math.random() * self.max) + 1);
+    var SessionID = Math.floor((Math.random() * self.max) + 1);
     self.games.push(SessionID);
     socket.join(SessionID);
     socket.in(SessionID).emit('hostCode', {"code":SessionID});
