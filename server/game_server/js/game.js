@@ -91,7 +91,7 @@ function update (){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
       io.to(self.playerList[0]).emit('getScenario',{"command":getCommand(1,self),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace(self)})
-      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2,self),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace(self)})
+      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2,self),"buttonA":this.buttonConfig[2],"buttonB":this.buttonConfig[3],"place":getPlace(self)})
 
     }
   //});
@@ -109,16 +109,16 @@ function getSessionID(){
 function getCommand(i,self){
   if(i==1){
     self.required='A';
-    return "Poop your pants";    
+    return "Bite";    
   }
   else if(i==2){
     self.required='B';
-    return "Soil your pants";    
+    return "Punch";    
   }
 }
 
 function getButtonconfig(){
-  return ["Punch","Kick"];
+  return ["Punch","Kick","Bite","Piss"];
 }
 
 function getPlace(self){
