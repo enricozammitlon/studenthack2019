@@ -41,7 +41,7 @@ function create() {
     });
   });
 
-  this.socket.on('updateScore', function (sessionid) {
+  this.socket.on('hostCode', function (sessionid) {
     self.blueScoreText.setText('Session ID: ' + sessionid['code']);
   });
 
