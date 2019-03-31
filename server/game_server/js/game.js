@@ -74,7 +74,7 @@ function update (){
   this.physics.world.wrap(this.players, 5);
   const self= this;
   //getAllPlayers(this).forEach((player) => {
-    if(self.games[0]){
+    if(self.games.values().next().value){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
       io.sockets.socket(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
