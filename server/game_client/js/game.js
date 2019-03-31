@@ -21,6 +21,8 @@ function create() {
   this.players = this.add.group();
 
   this.blueScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#0000FF' });
+  this.redScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#FF0000' });
+
 
   this.socket.on('newPlayer', function (playerInfo) {
     self.players.add(player);
@@ -38,6 +40,9 @@ function create() {
     self.blueScoreText.setText('Session ID: ' + sessionid['code']);
   });
 
+  this.socket.on('receivedSomething', function (sessionid) {
+      self.redScoreText.setText('Session ID: ' + sessionid['code']);
+    });
 }
 
 function update() {

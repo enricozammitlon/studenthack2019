@@ -37,7 +37,9 @@ function create ()
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
     //this.players.add(player);
-
+    socket.on('codeID', function (sessionid) {
+      socket.emit('receivedSomething', {"code":sessionid});
+      });
   
 /*    socket.on('disconnect', function () {
       console.log('user disconnected');
