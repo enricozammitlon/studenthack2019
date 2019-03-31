@@ -38,6 +38,10 @@ function create ()
     console.log('a user connected');
     console.log(this.SessionID);
     socket.emit('updateScore', {"code":self.SessionID});
+
+    self.buttonConfig=getButtonconfig();
+    socket.emit('getScenario',{"command":getCommand(),"buttonA":self.buttonConfig[0],"buttonB":self.buttonConfig[1]})
+
     //this.players.add(player);
 
 /*    socket.on('disconnect', function () {
@@ -65,6 +69,14 @@ function update (){
 function getSessionID(){
   console.log(this.SessionID);
   return this.SessionID;
+}
+
+function getCommand(){
+  return "Poop your pants";
+}
+
+function getButtonconfig(){
+  return ["Punch","Kick"];
 }
 
 window.gameLoaded();
