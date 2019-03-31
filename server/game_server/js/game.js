@@ -29,14 +29,16 @@ function create ()
 {
   const self=this;
   this.games =[];
+  this.playerList=[];
   this.players =[];
   this.microbits=[];
   this.max = 9999;
 
   io.on('connection', function (socket) {
     console.log('a user connected');
+    playerList.push(socket.id);
     var SessionID = Math.floor((Math.random() * self.max) + 1);
-    self.games.push(SessionID);
+    self.games[SessionID]=0;
     socket.join(SessionID);
     socket.emit('hostCode', {"code":SessionID});
     self.players[socket.id]=SessionID;
@@ -48,6 +50,11 @@ function create ()
         socket.join(sessionid);
         self.players[socket.id]=sessionid;
         });
+
+    socket.on('startgame', function (start) {
+            console.log("game room: "+sessionid+" is starting.");
+            self.games[io.sockets.manager.roomClients[socket.id]]=1;
+            });
 
     socket.on('disconnect', function () {
       console.log('user '+socket.id +' disconnected from game room '+self.players[socket.id]);
@@ -67,12 +74,18 @@ function update (){
   this.physics.world.wrap(this.players, 5);
   const self= this;
   //getAllPlayers(this).forEach((player) => {
-    //if(getAllPlayers(self).length>1){
+    if(self.games[0]){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-    //}
+      io.in(playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.in(playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+
+    }
   //});
+}
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
 }
 
 function getSessionID(){
@@ -80,8 +93,13 @@ function getSessionID(){
   return SessionID;
 }
 
-function getCommand(){
-  return "Poop your pants";
+function getCommand(i){
+  if(i==1){
+    return "Poop your pants";    
+  }
+  else if(i==2){
+    return "Soil your pants";    
+  }
 }
 
 function getButtonconfig(){
@@ -92,10 +110,6 @@ function getPlace(){
   return "0";
 }
 
-
-function getAllPlayers(self){
-    return self.players;
-}
 
 function getAllGameSessions(self){
     return self.games;
