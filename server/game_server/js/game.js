@@ -33,6 +33,7 @@ function create ()
   this.players =[];
   this.microbits=[];
   this.max = 9999;
+  this.start=false;
 
   io.on('connection', function (socket) {
     console.log('a user connected');
@@ -53,7 +54,7 @@ function create ()
 
     socket.on('startgame', function (start) {
             console.log("game room: "+self.players[socket.id]+" is starting.");
-            self.games[self.players[socket.id]]=1;
+            self.start=true;
             });
 
     socket.on('disconnect', function () {
@@ -74,11 +75,11 @@ function update (){
   this.physics.world.wrap(this.players, 5);
   const self= this;
   //getAllPlayers(this).forEach((player) => {
-    if(self.games[self.playerList[0]]){
+    if(self.start){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.sockets.socket(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.sockets.socket(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.to(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
 
     }
   //});

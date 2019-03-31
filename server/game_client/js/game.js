@@ -28,13 +28,7 @@ function create() {
   this.redScoreText1 = this.add.text(16,70, '', { fontSize: '32px', fill: '#FF0000' });
   this.greenScoreText1 = this.add.text(584, 90, '', { fontSize: '32px', fill: '#00FF00' });
 
-  this.socket.on('newPlayer', function (playerInfo) {
-    self.players.add(player);
-  });
-
-
-
-  this.socket.on('disconnect', function (playerId) {
+   this.socket.on('disconnect', function (playerId) {
     self.players.getChildren().forEach(function (player) {
       if (playerId === player.playerId) {
         player.destroy();
@@ -62,6 +56,6 @@ function create() {
 
 function update() {
   if (this.cursors.left.isDown) {
-    this.socket.emit('startgame',true)
+    this.socket.emit('startgame',"y")
   }
 }
