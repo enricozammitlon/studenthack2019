@@ -77,8 +77,8 @@ function update (){
     if(self.games[0]){
       this.buttonConfig=getButtonconfig();
       //io.to(`${self.players[0]}`).emit('getScenario',{"command":getCommand(),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.to(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
-      io.to(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.sockets.socket(self.playerList[0]).emit('getScenario',{"command":getCommand(1),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
+      io.sockets.socket(self.playerList[1]).emit('getScenario',{"command":getCommand(2),"buttonA":this.buttonConfig[0],"buttonB":this.buttonConfig[1],"place":getPlace()})
 
     }
   //});
